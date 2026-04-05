@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+DIRAYAAI - UPLOAD CONTENT
+Description: صفحة رفع المحتوى، تتيح للمستخدمين مشاركة الملفات أو الروابط الأكاديمية مع زملائهم ومتابعة حالة طلباتهم (مقبولة، مرفوضة، قيد المراجعة).
+============================================================================ -->
+<html lang="ar" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="upload_page_title">رفع محتوى | DirayaAI</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="has-header">
+
+  <div id="loginOverlay" class="login-overlay hidden">
+    <div class="login-modal">
+        <div class="modal-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+        </div>
+        <h2 data-i18n="upload_login_req_title">يتطلب تسجيل الدخول</h2>
+        <p data-i18n="upload_login_req_desc">عذراً، يجب عليك تسجيل الدخول أو إنشاء حساب للتمكن من رفع الملفات ومشاركتها مع الطلاب.</p>
+        <a href="signup.html" class="submit-approval-btn modal-btn" data-i18n="upload_login_btn">تسجيل الدخول / إنشاء حساب</a>
+      </div>
+  </div>
+
+<div class="page-wrapper">
+
+  <header class="header app-header" dir="ltr">
+    <a href="index.html" class="logo" aria-label="العودة للصفحة الرئيسية" title="الرئيسية">
+      <img src="./assets/logo.png" alt="شعار DirayaAI">
+      DirayaAI
+    </a>
+    
+    <nav class="nav">
+      <a href="index.html" data-i18n="nav_home">الصفحة الرئيسية</a>
+      <a href="index.html#about" data-i18n="nav_about">قصتنا</a>
+      <a href="platform.html" data-i18n="nav_platform">المنصة</a>
+      <a href="bot.html" data-i18n="nav_bot">بوت DirayaAI</a>
+      <a href="upload.html" class="active" data-i18n="nav_upload">رفع محتوى</a>
+      <a href="admin_dashboard.html" id="adminNavBtn" data-i18n="nav_admin">لوحة التحكم</a>
+    </nav>
+
+    <div class="header-controls">
+      <button id="langToggleBtn" class="lang-toggle-btn">English</button>
+      <button class="signup-btn" data-i18n="nav_login">تسجيل الدخول</button>
+    </div>
+  </header>
+
+  <main class="upload-section">
+    <div class="upload-container">
+      
+      <div class="card upload-form-card">
+        <h2 class="card-title" data-i18n="upload_form_title">رفع محتوى أكاديمي</h2>
+        
+        <form id="uploadContentForm" class="upload-form">
+          <input type="hidden" id="upload_type" name="upload_type" value="file">
+          
+          <div id="upload-msg" class="upload-message"></div>
+
+          <div class="form-group">
+            <label data-i18n="upload_content_type">نوع المحتوى</label>
+            <div class="tabs-container">
+              <button type="button" class="tab-btn active" id="tab-file">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                <span data-i18n="upload_tab_file">رفع ملف</span>
+              </button>
+              <button type="button" class="tab-btn" id="tab-url">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+                <span data-i18n="upload_tab_url">رابط خارجي</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group" id="file-input-group">
+            <label for="upload_file" data-i18n="upload_file_label">رفع ملف (PDF, Word, PPT, MP4)</label>
+            <div class="custom-file-input">
+              <input type="file" id="upload_file" name="upload_file" accept=".mp4, .pdf, .doc, .docx, .ppt, .pptx" class="hidden-file-input">
+              <span class="file-name" id="file-name-display" data-i18n="upload_no_file">لم يتم اختيار ملف</span>
+              <button type="button" class="browse-btn" onclick="document.getElementById('upload_file').click()" data-i18n="upload_browse_btn">تصفح...</button>
+            </div>
+          </div>
+
+          <div class="form-group hidden" id="url-input-group">
+            <label for="resource_url" data-i18n="upload_url_label">رابط المحتوى</label>
+            <input type="url" id="resource_url" name="resource_url" data-i18n="upload_url_ph" placeholder="ضع رابط يوتيوب أو درايف هنا..." class="standard-input">
+          </div>
+
+          <div class="form-group">
+            <label for="course_title" data-i18n="upload_course_label">اسم المقرر</label>
+            <select name="subject_id" id="course_title" class="standard-input" required>
+              <option value="" disabled selected data-i18n="upload_course_opt">يرجى اختيار المقرر...</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="description" data-i18n="upload_desc_label">الوصف</label>
+            <textarea name="description" id="description" rows="4" data-i18n="upload_desc_ph" placeholder="اكتب وصفاً مختصراً لمحتوى الملف المرفوع او الرابط..." class="standard-input" required></textarea>
+          </div>
+
+          <button type="submit" class="submit-approval-btn" id="submit-upload-btn" data-i18n="upload_submit_btn">إرسال للمراجعة</button>
+        </form>
+      </div>
+
+      <div class="card submissions-card">
+        <h2 class="card-title" data-i18n="upload_list_title">طلباتك المرفوعة</h2>
+        <div class="submissions-list" id="submissions-list">
+          <p class="empty-submissions" data-i18n="upload_loading_reqs">جاري تحميل طلباتك...</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <img class="footer-logo" src="./assets/Footer-logo.png" alt="DirayaAI Logo">
+    <p class="footer-text" data-i18n="footer_text">2026 DirayaAI. جميع الحقوق محفوظة | سياسة الخصوصية | شروط الخدمة</p>
+  </footer>
+
+</div>
+
+<script src="translations.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

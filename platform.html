@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+DIRAYAAI - PLATFORM / BROWSE MATERIALS
+Description: صفحة المنصة الأكاديمية، تتيح للطلاب تصفح المقررات الدراسية، البحث عن الملفات، وفلترة المحتوى للوصول السريع للمصادر.
+============================================================================ -->
+<html lang="ar" dir="ltr"> 
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="nav_platform">المنصة | DirayaAI</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="has-header">
+<div class="page-wrapper">
+
+  <header class="header app-header" dir="ltr">
+    <a href="index.html" class="logo" aria-label="العودة للصفحة الرئيسية" title="الرئيسية">
+      <img src="./assets/logo.png" alt="شعار DirayaAI">
+      DirayaAI
+    </a>
+    
+    <nav class="nav">
+      <a href="index.html" data-i18n="nav_home">الصفحة الرئيسية</a>
+      <a href="index.html#about" data-i18n="nav_about">قصتنا</a>
+      <a href="platform.html" class="active" data-i18n="nav_platform">المنصة</a>
+      <a href="bot.html" data-i18n="nav_bot">بوت DirayaAI</a>
+      <a href="upload.html" data-i18n="nav_upload">رفع محتوى</a>
+    <a href="admin_dashboard.html" id="adminNavBtn" data-i18n="nav_admin">لوحة التحكم</a>
+    </nav>
+
+    <div class="header-controls">
+      <button id="langToggleBtn" class="lang-toggle-btn">English</button>
+      <button class="signup-btn" data-i18n="nav_login">تسجيل الدخول</button>
+    </div>
+  </header>
+
+  <main class="platform-container">
+    
+    <div class="filter-panel">
+        <div class="search-box-wrapper">
+            <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="search-input" data-i18n="plat_search_ph" placeholder="البحث عن مقرر" class="main-search-input">
+        </div>
+
+        <div class="filters-row">
+            <div class="filter-group">
+                <label for="filter-college" data-i18n="plat_filter_college">الكليات</label>
+                <div class="custom-select-wrapper">
+                    <select id="filter-college" class="filter-select">
+                        <option value="all" data-i18n="plat_college_opt">كلية الحاسبات وتقنية المعلومات..</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="filter-group">
+                <label for="filter-course" data-i18n="plat_filter_course">اسم المقرر</label>
+                <div class="custom-select-wrapper">
+                    <select id="filter-course" class="filter-select">
+                        <option value="all" data-i18n="plat_course_opt">جميع المقررات</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="filter-group">
+                <label for="filter-type" data-i18n="plat_filter_type">النوع</label>
+                <div class="custom-select-wrapper">
+                    <select id="filter-type" class="filter-select">
+                        <option value="all" data-i18n="plat_type_all">جميع الأنواع</option>
+                        <option value="PDF" data-i18n="plat_type_pdf">ملف PDF</option>
+                        <option value="Video" data-i18n="plat_type_video">فيديو</option>
+                        <option value="Link" data-i18n="plat_type_link">رابط</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="filter-divider"></div>
+
+        <div class="results-info">
+            <span class="status-dot"></span>
+            <span data-i18n="plat_found_1">تم العثور على</span>
+            <span id="results-count-num">0</span>
+            <span data-i18n="plat_found_2">نتائج</span>
+        </div>
+    </div>
+
+    <div class="materials-grid" id="materials-grid">
+        </div>
+
+  </main>
+
+  <footer class="footer">
+    <img class="footer-logo" src="./assets/Footer-logo.png" alt="DirayaAI Logo">
+    <p class="footer-text" data-i18n="footer_text">
+      2026 DirayaAI. جميع الحقوق محفوظة | سياسة الخصوصية | شروط الخدمة
+    </p>
+  </footer>
+
+</div>
+
+<script src="translations.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

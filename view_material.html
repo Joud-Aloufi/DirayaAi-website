@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+DIRAYAAI - VIEW MATERIAL DETAILS
+Description: صفحة عرض تفاصيل المحتوى، تتيح للمستخدمين معاينة الملف أو الرابط، قراءة الوصف، والمشاركة بوضع التقييمات والتعليقات.
+============================================================================ -->
+<html lang="ar" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="view_page_title">عرض المحتوى | DirayaAI</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="has-header">
+<div class="page-wrapper">
+
+  <header class="header app-header" dir="ltr">
+    <a href="index.html" class="logo" aria-label="العودة للصفحة الرئيسية" title="الرئيسية">
+      <img src="./assets/logo.png" alt="شعار DirayaAI">
+      DirayaAI
+    </a>
+    
+    <nav class="nav">
+      <a href="index.html" data-i18n="nav_home">الصفحة الرئيسية</a>
+      <a href="index.html#about" data-i18n="nav_about">قصتنا</a>
+      <a href="platform.html" class="active" data-i18n="nav_platform">المنصة</a>
+      <a href="bot.html" data-i18n="nav_bot">بوت DirayaAI</a>
+      <a href="upload.html" data-i18n="nav_upload">رفع محتوى</a>
+      <a href="admin_dashboard.html" id="adminNavBtn" data-i18n="nav_admin">لوحة التحكم</a>
+    </nav>
+
+    <div class="header-controls">
+      <button id="langToggleBtn" class="lang-toggle-btn">English</button>
+      <button class="signup-btn" data-i18n="nav_login">تسجيل الدخول</button>
+    </div>
+  </header>
+
+  <main class="view-section">
+    <div class="view-container">
+      
+      <a href="platform.html" class="back-link" data-i18n="view_back_link">العودة للمنصة ←</a>
+
+      <div class="content-player-box" id="content-player-box">
+          <div class="loading-content" data-i18n="view_loading">جاري تحميل المحتوى...</div>
+      </div>
+
+      <div class="content-info-bar">
+        <div class="content-details">
+            <h1 id="view-title">...</h1>
+            <p class="content-meta" dir="ltr">
+                <span id="view-author">...</span> | 
+                <span id="view-date">...</span>
+            </p>
+        </div>
+        
+        <div class="rating-box">
+            <div class="stars">
+                <span class="star" data-value="1">★</span>
+                <span class="star" data-value="2">★</span>
+                <span class="star" data-value="3">★</span>
+                <span class="star" data-value="4">★</span>
+                <span class="star" data-value="5">☆</span>
+            </div>
+            <span class="rating-score">0.0 (0 <span data-i18n="view_ratings_count">تقييمات</span>)</span>
+        </div>
+      </div>
+
+      <div class="content-description" id="view-desc"></div>
+
+      <hr class="view-divider">
+
+      <div class="comments-section">
+          <h3 data-i18n="view_comments_title">التعليقات</h3>
+          
+          <div class="add-comment-box">
+              <textarea data-i18n="view_comment_placeholder" placeholder="أضيفي تعليقاً أو استفساراً حول هذا المحتوى..."></textarea>
+              <button class="submit-btn comment-btn" data-i18n="view_submit_comment">إرسال التعليق</button>
+          </div>
+
+          <div class="comments-list"></div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <img class="footer-logo" src="./assets/Footer-logo.png" alt="DirayaAI Logo">
+    <p class="footer-text" data-i18n="footer_text">
+      2026 DirayaAI. جميع الحقوق محفوظة | سياسة الخصوصية | شروط الخدمة
+    </p>
+  </footer>
+
+</div>
+
+<script src="translations.js"></script>
+<script src="main.js"></script>
+<script src="view.js"></script>
+</body>
+</html>

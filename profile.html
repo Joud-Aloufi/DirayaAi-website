@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+DIRAYAAI - PROFILE PAGE
+Description: صفحة الملف الشخصي، تتيح للمستخدم عرض بياناته الأساسية وتعديلها، بالإضافة إلى تغيير كلمة المرور الخاصة به بشكل آمن.
+============================================================================ -->
+<html lang="ar" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="profile_page_title">الملف الشخصي | DirayaAI</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="has-header">
+<div class="page-wrapper">
+
+  <header class="header app-header" dir="ltr">
+    <a href="index.html" class="logo" aria-label="العودة للصفحة الرئيسية" title="الرئيسية">
+      <img src="./assets/logo.png" alt="شعار DirayaAI">
+      DirayaAI
+    </a>
+    
+    <nav class="nav">
+      <a href="index.html" data-i18n="nav_home">الصفحة الرئيسية</a>
+      <a href="index.html#about" data-i18n="nav_about">قصتنا</a>
+      <a href="platform.html" data-i18n="nav_platform">المنصة</a>
+      <a href="bot.html" data-i18n="nav_bot">بوت DirayaAI</a>
+      <a href="upload.html" data-i18n="nav_upload">رفع محتوى</a>
+      <a href="admin_dashboard.html" id="adminNavBtn" data-i18n="nav_admin">لوحة التحكم</a>
+    </nav>
+
+    <div class="header-controls">
+      <button id="langToggleBtn" class="lang-toggle-btn">English</button>
+      <button class="signup-btn" data-i18n="nav_login">تسجيل الدخول</button>
+    </div>
+  </header>
+
+<section class="profile-section">
+  <div class="profile-card">
+    <div class="profile-header">
+      <div class="profile-avatar" id="profile-avatar"></div>
+      <h2 id="welcome-name" data-i18n="profile_loading">جاري التحميل...</h2>
+    </div>
+
+    <div class="profile-info">
+      <div class="input-group profile-input">
+        <label for="first-name-input" data-i18n="profile_fname_lbl">الاسم الأول</label>
+        <input type="text" id="first-name-input">
+      </div>
+      
+      <div class="input-group profile-input">
+        <label for="last-name-input" data-i18n="profile_lname_lbl">الاسم الأخير</label>
+        <input type="text" id="last-name-input">
+      </div>
+
+      <div class="input-group profile-input">
+        <label for="uni-id-input" data-i18n="profile_uni_id_lbl">الرقم الجامعي (غير قابل للتعديل)</label>
+        <input type="text" id="uni-id-input" disabled class="disabled-field" dir="ltr">
+        <small class="help-text" data-i18n="profile_uni_id_help">لطلب تعديل الرقم الجامعي، يرجى التواصل مع الدعم الفني.</small>
+      </div>
+
+      <div class="input-group profile-input">
+        <label for="email-input" data-i18n="profile_email_lbl">البريد الإلكتروني</label>
+        <input type="email" id="email-input" dir="ltr">
+      </div>
+
+      <div class="input-group profile-input">
+        <label for="phone-input" data-i18n="profile_phone_lbl">رقم الجوال</label>
+        <input type="tel" id="phone-input" dir="ltr">
+      </div>
+
+      <div class="input-group profile-input">
+        <label for="role-input" data-i18n="profile_role_lbl">الدور</label>
+        <input type="text" id="role-input" disabled class="disabled-field">
+      </div>
+
+      <hr class="profile-divider">
+      <div class="password-title-wrapper">
+        <h3 class="profile-section-title" data-i18n="profile_pass_title">تغيير كلمة المرور</h3>
+      </div>
+
+      <div class="input-group profile-input">
+        <label for="current-pass-input" data-i18n="profile_current_pass">كلمة المرور الحالية</label>
+        <div class="pass-wrapper">
+          <input type="password" id="current-pass-input" dir="ltr">
+          <button type="button" class="toggle-pass-btn" title="إظهار/إخفاء كلمة المرور" aria-label="إظهار أو إخفاء كلمة المرور">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="input-group profile-input">
+        <label for="new-pass-input" data-i18n="profile_new_pass">كلمة المرور الجديدة</label>
+        <div class="pass-wrapper">
+          <input type="password" id="new-pass-input" dir="ltr">
+          <button type="button" class="toggle-pass-btn" title="إظهار/إخفاء كلمة المرور" aria-label="إظهار أو إخفاء كلمة المرور">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+        </div>
+        
+        <div class="password-meter-container">
+            <div class="password-segment"></div>
+            <div class="password-segment"></div>
+            <div class="password-segment"></div>
+            <div class="password-segment"></div>
+        </div>
+        <div class="password-text" id="profile-password-text" data-i18n="auth_pass_meter">قوة كلمة المرور</div>
+      </div>
+
+      <div class="input-group profile-input">
+        <label for="confirm-pass-input" data-i18n="profile_confirm_pass">تأكيد كلمة المرور الجديدة</label>
+        <div class="pass-wrapper">
+          <input type="password" id="confirm-pass-input" dir="ltr">
+          <button type="button" class="toggle-pass-btn" title="إظهار/إخفاء كلمة المرور" aria-label="إظهار أو إخفاء كلمة المرور">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+          </button>
+        </div>
+      </div>
+      </div>
+
+    <div id="update-msg" class="update-message"></div>
+    <button id="save-profile-btn" class="submit-btn save-btn" data-i18n="profile_btn_save">حفظ التعديلات</button>
+    <a href="auth_handler.php?action=logout" class="logout-btn" data-i18n="profile_btn_logout">تسجيل الخروج</a>
+  </div>
+</section>
+
+<footer class="footer">
+  <img class="footer-logo" src="./assets/Footer-logo.png" alt="DirayaAI Logo">
+  <p class="footer-text" data-i18n="footer_text">
+    2026 DirayaAI. جميع الحقوق محفوظة | سياسة الخصوصية | شروط الخدمة
+  </p>
+</footer>
+</div>
+
+<script src="translations.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

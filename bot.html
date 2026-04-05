@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+DIRAYAAI - BOT PAGE
+Description: صفحة البوت الذكي، تحتوي على واجهة المحادثة المدمجة للرد الفوري على استفسارات الطلاب الأكاديمية ومساعدتهم.
+============================================================================ -->
+<html lang="ar" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="bot_page_title">DirayaAI Bot</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dirayaai-bot-body">
+
+  <header class="header app-header dark-header bot-header-relative" dir="ltr">
+    <a href="index.html" class="logo" aria-label="العودة للصفحة الرئيسية" title="الرئيسية">
+      <img src="./assets/logo.png" alt="شعار DirayaAI">
+      DirayaAI
+    </a>
+    
+    <nav class="nav" >
+      <a href="index.html" data-i18n="nav_home">الصفحة الرئيسية</a>
+      <a href="index.html#about" data-i18n="nav_about">قصتنا</a>
+      <a href="platform.html" data-i18n="nav_platform">المنصة</a>
+      <a href="bot.html" class="active" data-i18n="nav_bot">بوت DirayaAI</a>
+      <a href="upload.html" data-i18n="nav_upload">رفع محتوى</a>
+      <a href="admin_dashboard.html" id="adminNavBtn" data-i18n="nav_admin">لوحة التحكم</a>
+    </nav>
+
+    <div class="header-controls">
+      <button id="langToggleBtn" class="lang-toggle-btn">English</button>
+      <button class="signup-btn" data-i18n="nav_login">تسجيل الدخول</button>
+    </div>
+  </header>
+
+  <main class="bot-main-container">
+    <iframe 
+       class="bot-iframe"
+       title="DirayaAI Chatbot"
+       src="https://cdn.botpress.cloud/webchat/v3.6/shareable.html?configUrl=https://files.bpcontent.cloud/2026/03/16/19/20260316190637-PMOW9ROO.json" 
+       allow="microphone">
+    </iframe>
+  </main>
+
+  <script src="translations.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

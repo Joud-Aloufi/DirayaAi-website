@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+DIRAYAAI - ADMIN FAQ MANAGEMENT
+Description: صفحة لإدارة وتحديث قاعدة المعرفة الخاصة بالبوت، تتيح إضافة أو حذف الأسئلة والأجوبة.
+============================================================================ -->
+<html lang="ar" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="admin_faq_page_title">إدارة أسئلة البوت | DirayaAI</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="has-header">
+<div class="page-wrapper">
+
+  <header class="header app-header" dir="ltr">
+    <a href="index.html" class="logo" aria-label="العودة للصفحة الرئيسية" title="الرئيسية">
+      <img src="./assets/logo.png" alt="شعار DirayaAI">
+      DirayaAI
+    </a>
+    
+    <nav class="nav">
+      <a href="index.html" data-i18n="nav_home">الصفحة الرئيسية</a>
+      <a href="index.html#about" data-i18n="nav_about">قصتنا</a>
+      <a href="platform.html" data-i18n="nav_platform">المنصة</a>
+      <a href="bot.html" data-i18n="nav_bot">بوت DirayaAI</a>
+      <a href="upload.html" data-i18n="nav_upload">رفع محتوى</a>
+      <a href="admin_dashboard.html" id="adminNavBtn" class="active" data-i18n="nav_admin">لوحة التحكم</a>
+    </nav>
+
+    <div class="header-controls">
+      <button id="langToggleBtn" class="lang-toggle-btn">English</button>
+      <button class="signup-btn" data-i18n="nav_login">تسجيل الدخول</button>
+    </div>
+  </header>
+
+  <main class="admin-container faq-admin-container">
+    
+    <div class="faq-header-wrapper">
+        <svg class="faq-header-icon" width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            <circle cx="8" cy="10" r="1.5" fill="#333"></circle>
+            <circle cx="12" cy="10" r="1.5" fill="#333"></circle>
+            <circle cx="16" cy="10" r="1.5" fill="#333"></circle>
+        </svg>
+        <h1 class="faq-page-title" data-i18n="admin_faq_title">الأسئلة الشائعة</h1>
+        <p class="faq-page-desc" data-i18n="admin_faq_subtitle">إدارة وتحديث قاعدة بيانات البوت (DirayaAI Bot) الأكاديمية.</p>
+    </div>
+
+    <div class="admin-card faq-card">
+        <h2 class="faq-section-title" data-i18n="admin_faq_add_title">إضافة سؤال وجواب جديد</h2>
+        <form id="addFaqForm">
+            <div class="form-group">
+                <label data-i18n="admin_faq_label_q">السؤال</label>
+                <input type="text" id="bot_question" name="question" class="standard-input" data-i18n="admin_faq_ph_q" placeholder="مثال: متى يبدأ التسجيل المبكر؟" required>
+            </div>
+            
+            <div class="form-group">
+                <label data-i18n="admin_faq_label_a">إجابة البوت (DirayaAI)</label>
+                <textarea id="bot_answer" name="answer" rows="4" class="standard-input" data-i18n="admin_faq_ph_a" placeholder="أدخل الإجابة الدقيقة هنا ليقوم البوت بحفظها..." required></textarea>
+            </div>
+
+            <button type="submit" class="submit-approval-btn btn-full-width" data-i18n="admin_faq_btn_save">حفظ في قاعدة البيانات</button>
+        </form>
+    </div>
+
+    <div class="admin-card faq-card">
+        <h2 class="faq-section-title" data-i18n="admin_faq_db_title">قاعدة البيانات الحالية</h2>
+        
+        <div id="faq-list" class="faq-list">
+            </div>
+    </div>
+
+  </main>
+
+  <footer class="footer">
+    <img class="footer-logo" src="./assets/Footer-logo.png" alt="DirayaAI Logo">
+    <p class="footer-text" data-i18n="footer_text">
+      2026 DirayaAI. جميع الحقوق محفوظة | سياسة الخصوصية | شروط الخدمة
+    </p>
+  </footer>
+
+</div>
+<script src="translations.js"></script>
+<script src="main.js"></script>
+<script src="admin.js"></script> 
+</body>
+</html>

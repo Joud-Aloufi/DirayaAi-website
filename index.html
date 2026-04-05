@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+DIRAYAAI - HOME PAGE (LANDING)
+Description: الصفحة الرئيسية للمنصة، تعرض نظرة عامة عن منصة DirayaAI ومميزاتها وقصة المشروع، وتحتوي على روابط سريعة للوصول لباقي الأقسام.
+============================================================================ -->
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DirayaAI | الصفحة الرئيسية</title>
+  
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="landing-page-body has-header">
+  <div class="page-wrapper app-wrapper">
+
+<header class="header app-header" dir="ltr">
+    <a href="index.html" class="logo" aria-label="العودة للصفحة الرئيسية" title="الرئيسية">
+      <img src="./assets/logo.png" alt="شعار DirayaAI">
+      DirayaAI
+    </a>
+    
+    <nav class="nav">
+      <a href="index.html" data-i18n="nav_home" class="active">الصفحة الرئيسية</a>
+      <a href="index.html#about" data-i18n="nav_about">قصتنا</a>
+      <a href="platform.html" data-i18n="nav_platform">المنصة</a>
+      <a href="bot.html" data-i18n="nav_bot">بوت DirayaAI</a>
+      <a href="upload.html" data-i18n="nav_upload">رفع محتوى</a>
+      <a href="admin_dashboard.html" id="adminNavBtn" data-i18n="nav_admin">لوحة التحكم</a>
+    </nav>
+
+    <div class="header-controls">
+      <button id="langToggleBtn" class="lang-toggle-btn">English</button>
+      <button class="signup-btn" data-i18n="nav_login">تسجيل الدخول</button>
+    </div>
+  </header>
+
+  <main class="landing-main">
+    
+    <section class="hero-section">
+      <div class="hero-text-content">
+        <div class="beta-badge" data-i18n="hero_beta">🚀 نسخة تجريبية (Beta)</div>
+        <h1 class="hero-title" data-i18n="hero_title">مساعدك الأكاديمي <span class="gradient-text">الذكي</span></h1>
+        <p class="hero-subtitle" data-i18n="hero_subtitle">
+          منصة DirayaAI تجمع لك كل ما تحتاجه في مسيرتك الجامعية. استفسر من البوت الذكي، تصفح المقررات الدراسية، وشارك ملفاتك بكل سهولة.
+        </p>
+        <div class="hero-buttons">
+          <a href="bot.html" class="cta-btn primary-cta" data-i18n="hero_btn_bot">جرب البوت الآن</a>
+          <a href="platform.html" class="cta-btn secondary-cta" data-i18n="hero_btn_platform">تصفح المنصة</a>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="glass-card bounce-anim">
+          <div class="glass-header">
+            <div class="glass-avatar"><img src="./assets/logo.png" alt="Bot"></div>
+            <div>
+              <h4>DirayaAI Bot</h4>
+              <span data-i18n="bot_status">متصل الآن</span>
+            </div>
+          </div>
+          <div class="glass-body">
+            <p data-i18n="bot_msg">أهلاً بك! كيف يمكنني مساعدتك في جدولك الأكاديمي اليوم؟</p>
+          </div>
+        </div>
+        <div class="bg-shape shape-1"></div>
+        <div class="bg-shape shape-2"></div>
+      </div>
+    </section>
+
+    <section class="features-section">
+      <div class="features-header">
+        <h2 data-i18n="feat_title">لماذا <span class="gradient-text">DirayaAI</span>؟</h2>
+        <p data-i18n="feat_subtitle">مصمم خصيصاً لتسهيل حياتك الجامعية</p>
+      </div>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feat-icon icon-blue">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+          </div>
+          <h3 data-i18n="feat_1_title">مساعد ذكي 24/7</h3>
+          <p data-i18n="feat_1_desc">اسأل البوت عن أي استفسار أكاديمي، مواعيد الحذف والإضافة، أو اللوائح، وسيجيبك فوراً.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feat-icon icon-gold">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          </div>
+          <h3 data-i18n="feat_2_title">مكتبة شاملة</h3>
+          <p data-i18n="feat_2_desc">تصفح وحمل ملخصات، شروحات، وملفات مقرراتك الدراسية منظمة في مكان واحد.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feat-icon icon-green">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+          </div>
+          <h3 data-i18n="feat_3_title">شاركنا معرفتك!</h3>
+          <p data-i18n="feat_3_desc">ارفع ملفاتك وملاحظاتك المفيدة لتتم مراجعتها ومشاركتها مع بقية زملائك.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="about-inline-section" id="about">
+      <div class="about-inline-container">
+        <div class="about-inline-content">
+          <h2 data-i18n="about_title">القصة وراء <span class="gradient-text">DirayaAI</span></h2>
+          <div class="about-line"></div>
+          <p data-i18n="about_p1">نحن طالبات من قسم تقنية المعلومات في كلية الحاسبات بجامعة الطائف، يجمعنا شغف واحد نحو تطوير حلول تقنية تُحدث فرقًا حقيقيًا في حياة الطالب الجامعية.</p>
+          <p data-i18n="about_p2">انطلق مشروعنا من ملاحظة بسيطة، لكنها مهمة: كثير من الطلاب يواجهون صعوبة في الوصول للمعلومات الأكاديمية بسرعة، كما يفتقدون مصدرًا موحدًا يضم شروحات وملفات موثوقة لمقرراتهم.</p>
+          <p data-i18n="about_p3">ومن هنا وُلدت فكرة منصّتنا <strong>DirayaAI</strong>؛ منصة ذكية تجمع بين المساعد الآلي المبني على الذكاء الاصطناعي ومساحة تعليمية تفاعلية للطلاب. نطمح من خلالها إلى تسهيل رحلة الطالب الجامعي، سواء في طلب المعلومة أو في مشاركة المعرفة، بطريقة عصرية ومرنة وسهلة الاستخدام.</p>
+          <p data-i18n="about_p4">نؤمن بأن التكنولوجيا ليست مجرد أدوات، بل وسيلة لخلق بيئة جامعية أكثر سلاسة، وأكثر دعمًا، وأكثر تواصلًا. ومع كل خطوة نعمل عليها، نسعى إلى تقديم تجربة تحاكي احتياجات الطلاب الفعلية، وتنسجم مع <strong>رؤية المملكة 2030</strong> في تعزيز التعليم الرقمي والابتكار التقني.</p>
+          <div class="about-vision">
+            <h3 data-i18n="about_vision">"نحن ببساطة: فريق مؤمن بأن المعرفة حق، والوصول إليها يجب أن يكون أسهل وأسرع للجميع."</h3>
+          </div>
+        </div>
+
+        <div class="about-inline-visual">
+          <div class="icon-circle">
+            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 10v6M2 10l10-5 10 5-10 5z"></path><path d="M6 12v5c3 3 9 3 12 0v-5"></path></svg>
+          </div>
+          <div class="visual-shape"></div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <img class="footer-logo" src="./assets/Footer-logo.png" alt="DirayaAI Logo">
+    <p class="footer-text">2026 DirayaAI. All Privacy Policy Terms of Service</p>
+  </footer>
+
+</div>
+
+<script src="translations.js"></script>
+<script src="main.js"></script>
+</body>
+</html>

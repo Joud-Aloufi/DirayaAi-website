@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+DIRAYAAI - ADMIN REVIEW SUBMISSIONS
+Description: صفحة مراجعة المحتوى المرفوع من قبل الطلاب، تتيح للمشرفين الموافقة، الرفض، أو الحذف.
+============================================================================ -->
+<html lang="ar" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="admin_rev_page_title">مراجعة الطلبات | DirayaAI</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="has-header">
+<div class="page-wrapper">
+
+  <header class="header app-header" dir="ltr">
+    <a href="index.html" class="logo" aria-label="العودة للصفحة الرئيسية" title="الرئيسية">
+      <img src="./assets/logo.png" alt="شعار DirayaAI">
+      DirayaAI
+    </a>
+    
+    <nav class="nav">
+      <a href="index.html" data-i18n="nav_home">الصفحة الرئيسية</a>
+      <a href="index.html#about" data-i18n="nav_about">قصتنا</a>
+      <a href="platform.html" data-i18n="nav_platform">المنصة</a>
+      <a href="bot.html" data-i18n="nav_bot">بوت DirayaAI</a>
+      <a href="upload.html" data-i18n="nav_upload">رفع محتوى</a>
+      <a href="admin_dashboard.html" id="adminNavBtn" class="active" data-i18n="nav_admin">لوحة التحكم</a>
+    </nav>
+
+    <div class="header-controls">
+      <button id="langToggleBtn" class="lang-toggle-btn">English</button>
+      <button class="signup-btn" data-i18n="nav_login">تسجيل الدخول</button>
+    </div>
+  </header>
+
+  <main class="admin-review-section">
+    <div class="admin-layout-wrapper">
+      
+      <div class="review-header-text">
+        <h2 data-i18n="admin_rev_title">مراجعة الطلبات</h2>
+        <p data-i18n="admin_rev_subtitle">إدارة ومراجعة المحتوى المرفوع من قبل الطالبات</p>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-info">
+            <span class="stat-title" data-i18n="admin_rev_stat_pending">قيد المراجعة</span>
+            <span class="stat-number" id="count-pending">0</span>
+          </div>
+          <div class="stat-icon icon-pending">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-info">
+            <span class="stat-title" data-i18n="admin_rev_stat_approved">مقبوله</span>
+            <span class="stat-number" id="count-approved">0</span>
+          </div>
+          <div class="stat-icon icon-approved">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          </div>
+        </div>
+
+        <div class="stat-card">
+          <div class="stat-info">
+            <span class="stat-title" data-i18n="admin_rev_stat_rejected">مرفوضه</span>
+            <span class="stat-number" id="count-rejected">0</span>
+          </div>
+          <div class="stat-icon icon-rejected">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-review-container">
+        <div class="review-submissions-column">
+          <div class="all-submissions-wrapper">
+            <div class="all-submissions-header">
+              <h3 data-i18n="admin_rev_all_title">جميع الطلبات</h3>
+              <p id="total-submissions-text">0 إجمالي الطلبات</p>
+            </div>
+
+            <div class="review-list" id="admin-submissions-list">
+              <p class="empty-submissions" data-i18n="admin_rev_loading">جاري تحميل الطلبات...</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <img class="footer-logo" src="./assets/Footer-logo.png" alt="DirayaAI Logo">
+    <p class="footer-text" data-i18n="footer_text">
+      2026 DirayaAI. جميع الحقوق محفوظة | سياسة الخصوصية | شروط الخدمة
+    </p>
+  </footer>
+
+</div>
+
+<script src="translations.js"></script>
+<script src="main.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+DIRAYAAI - NOTIFICATIONS PAGE
+Description: صفحة الإشعارات، تعرض للمستخدم سجل التنبيهات الخاصة بحالة طلبات المحتوى المرفوع (تأكيد القبول أو إشعار الرفض).
+============================================================================ -->
+<html lang="ar" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="noti_page_title">الإشعارات | DirayaAI</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="has-header">
+<div class="page-wrapper">
+
+  <header class="header app-header" dir="ltr">
+    <a href="index.html" class="logo" aria-label="العودة للصفحة الرئيسية" title="الرئيسية">
+      <img src="./assets/logo.png" alt="شعار DirayaAI">
+      DirayaAI
+    </a>
+    
+    <nav class="nav">
+      <a href="index.html" data-i18n="nav_home">الصفحة الرئيسية</a>
+      <a href="index.html#about" data-i18n="nav_about">قصتنا</a>
+      <a href="platform.html" data-i18n="nav_platform">المنصة</a>
+      <a href="bot.html" data-i18n="nav_bot">بوت DirayaAI</a>
+      <a href="upload.html" data-i18n="nav_upload">رفع محتوى</a>
+      <a href="admin_dashboard.html" id="adminNavBtn" data-i18n="nav_admin">لوحة التحكم</a>
+    </nav>
+
+    <div class="header-controls">
+      <button id="langToggleBtn" class="lang-toggle-btn">English</button>
+      <button class="signup-btn" data-i18n="nav_login">تسجيل الدخول</button>
+    </div>
+  </header>
+
+  <main class="noti-main">
+    <div class="noti-container">
+      <h2 class="noti-heading" data-i18n="noti_heading">إشعاراتك</h2>
+      <div id="notifications-list">
+        <p class="noti-empty-msg" data-i18n="noti_loading">جاري تحميل الإشعارات...</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <img class="footer-logo" src="./assets/Footer-logo.png" alt="DirayaAI Logo">
+    <p class="footer-text" data-i18n="footer_text">2026 DirayaAI. جميع الحقوق محفوظة</p>
+  </footer>
+
+</div>
+
+<script src="translations.js"></script>
+<script src="main.js"></script>
+<script src="notifications.js"></script>
+</body>
+</html>

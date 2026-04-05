@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!-- ============================================================================
+DIRAYAAI - ADMIN ADD USER PAGE
+Description: صفحة مخصصة لمدير النظام لإضافة مستخدمين جدد (طلاب أو مشرفين) وإدارة صلاحياتهم.
+============================================================================ -->
+<html lang="ar" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="admin_page_title">لوحة التحكم | DirayaAI</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="has-header">
+<div class="page-wrapper">
+
+<header class="header app-header" dir="ltr">
+    <a href="index.html" class="logo" aria-label="العودة للصفحة الرئيسية" title="الرئيسية">
+      <img src="./assets/logo.png" alt="شعار DirayaAI">
+      DirayaAI
+    </a>
+    
+    <nav class="nav">
+      <a href="index.html" data-i18n="nav_home">الصفحة الرئيسية</a>
+      <a href="index.html#about" data-i18n="nav_about">قصتنا</a>
+      <a href="platform.html" data-i18n="nav_platform">المنصة</a>
+      <a href="bot.html" data-i18n="nav_bot">بوت DirayaAI</a>
+      <a href="upload.html" data-i18n="nav_upload">رفع محتوى</a>
+      <a href="admin_dashboard.html" id="adminNavBtn" class="active" data-i18n="nav_admin">لوحة التحكم</a>
+    </nav>
+
+    <div class="header-controls">
+      <button id="langToggleBtn" class="lang-toggle-btn">English</button>
+      <button class="signup-btn" data-i18n="nav_login">تسجيل الدخول</button>
+    </div>
+  </header>
+
+  <main class="upload-section">
+    <div class="upload-container admin-container">
+      
+      <div id="addUserCard" class="card admin-card">
+        <h2 class="card-title admin-title" data-i18n="admin_add_user_title">إضافة مستخدم جديد</h2>
+        <p class="admin-subtitle" data-i18n="admin_add_user_subtitle">هذه الصفحة مخصصة لمدير النظام فقط لإضافة طالب أو مشرفين جدد.</p>
+
+        <div id="admin-msg" class="upload-message"></div>
+
+        <form id="adminAddUserForm" class="upload-form">
+          
+          <div class="input-row">
+            <div class="input-group">
+              <label for="f_name_admin" data-i18n="admin_label_fname">الاسم الأول</label>
+              <input type="text" id="f_name_admin" name="f_name" class="standard-input" required>
+            </div>
+            <div class="input-group">
+              <label for="l_name_admin" data-i18n="admin_label_lname">الاسم الأخير</label>
+              <input type="text" id="l_name_admin" name="l_name" class="standard-input" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="uni_id_admin" data-i18n="admin_label_uni_id">الرقم الجامعي أو الوظيفي</label>
+            <input type="text" id="uni_id_admin" name="uni_id" class="standard-input" required>
+          </div>
+
+          <div class="form-group">
+            <label for="user_email_admin" data-i18n="admin_label_email">البريد الإلكتروني</label>
+            <input type="email" id="user_email_admin" name="user_email" class="standard-input" data-i18n="admin_ph_email" placeholder="example@domain.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="user_phone_admin" data-i18n="admin_label_phone">رقم الجوال</label>
+            <input type="tel" id="user_phone_admin" name="user_phone" class="standard-input" data-i18n="admin_ph_phone" placeholder="05xxxxxxxx" pattern="^05\d{8}$" maxlength="10" title="يجب أن يبدأ رقم الجوال بـ 05 ويتكون من 10 أرقام" >
+          </div>
+
+          <div class="form-group">
+            <label for="user_pass_admin" data-i18n="admin_label_pass">كلمة المرور</label>
+            <div class="pass-wrapper">
+              <input type="password" id="user_pass_admin" name="user_pass" class="standard-input" data-i18n="admin_ph_pass" placeholder="8 خانات على الأقل" required minlength="8">
+              <button type="button" class="toggle-pass-btn" aria-label="إظهار أو إخفاء كلمة المرور" title="إظهار/إخفاء كلمة المرور">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="user_role_admin" data-i18n="admin_label_role">صلاحية الحساب</label>
+            <select id="user_role_admin" name="user_role" class="standard-input" required>
+              <option value="" disabled selected data-i18n="admin_role_opt">اختر صلاحية المستخدم...</option>
+              <option value="طالب" data-i18n="admin_role_student">طالب</option>
+              <option value="مشرف" data-i18n="admin_role_admin">مشرف</option>
+            </select>
+          </div>
+
+          <button type="submit" class="submit-approval-btn" id="btn-add-user" data-i18n="admin_btn_create">إنشاء حساب</button>
+        </form>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <img class="footer-logo" src="./assets/Footer-logo.png" alt="DirayaAI Logo">
+    <p class="footer-text" data-i18n="footer_text">
+      2026 DirayaAI. جميع الحقوق محفوظة | سياسة الخصوصية | شروط الخدمة
+    </p>
+  </footer>
+
+</div>
+
+<script src="translations.js"></script>
+<script src="main.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>

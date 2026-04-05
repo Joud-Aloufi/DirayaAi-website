@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<!--============================================================================
+DIRAYAAI - ADMIN SUBJECTS MANAGEMENT
+Description: صفحة إدارة المقررات الدراسية، تتيح إضافة، تعديل، أو حذف المواد المتاحة في المنصة.
+============================================================================ -->
+<html lang="ar" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title data-i18n="admin_sub_page_title">إدارة المواد | DirayaAI</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="has-header">
+<div class="page-wrapper">
+
+<header class="header app-header" dir="ltr">
+    <a href="index.html" class="logo" aria-label="العودة للصفحة الرئيسية" title="الرئيسية">
+      <img src="./assets/logo.png" alt="شعار DirayaAI">
+      DirayaAI
+    </a>
+    
+    <nav class="nav">
+      <a href="index.html" data-i18n="nav_home">الصفحة الرئيسية</a>
+      <a href="index.html#about" data-i18n="nav_about">قصتنا</a>
+      <a href="platform.html" data-i18n="nav_platform">المنصة</a>
+      <a href="bot.html" data-i18n="nav_bot">بوت DirayaAI</a>
+      <a href="upload.html" data-i18n="nav_upload">رفع محتوى</a>
+      <a href="admin_dashboard.html" id="adminNavBtn" class="active" data-i18n="nav_admin">لوحة التحكم</a>
+    </nav>
+
+    <div class="header-controls">
+      <button id="langToggleBtn" class="lang-toggle-btn">English</button>
+      <button class="signup-btn" data-i18n="nav_login">تسجيل الدخول</button>
+    </div>
+  </header>
+
+  <main class="upload-section">
+    <div class="upload-container">
+      
+      <div class="card upload-form-card fit-content-card">
+        <h2 class="card-title" data-i18n="admin_sub_add_title">إضافة مقرر دراسي جديد</h2>
+        <div id="subject-msg" class="upload-message"></div>
+
+        <form id="adminAddSubjectForm" class="upload-form">
+          <div class="input-row">
+            <div class="input-group">
+              <label for="subject_code_input" data-i18n="admin_sub_code_lbl">رمز المادة (مثال: CS-101)</label>
+              <input type="text" id="subject_code_input" name="subject_code" class="standard-input" dir="ltr" required>
+            </div>
+            <div class="input-group">
+              <label for="subject_name_input" data-i18n="admin_sub_name_lbl">اسم المادة</label>
+              <input type="text" id="subject_name_input" name="subject_name" class="standard-input" required>
+            </div>
+          </div>
+
+          <div class="input-row">
+            <div class="input-group">
+              <label for="college-select" data-i18n="admin_sub_col_lbl">الكلية</label>
+              <select name="college" id="college-select" class="standard-input" required>
+                <option value="" disabled selected data-i18n="admin_sub_col_opt">اختاري الكلية أولاً...</option>
+                <option value="كلية الحاسبات" data-i18n="كلية الحاسبات">كلية الحاسبات</option>
+                <option value="كلية العلوم" data-i18n="كلية العلوم">كلية العلوم</option>
+                <option value="متطلب جامعة عام" data-i18n="متطلب جامعة عام">متطلب جامعة عام</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="department-select" data-i18n="admin_sub_dep_lbl">القسم</label>
+              <select name="department" id="department-select" class="standard-input" required disabled>
+                <option value="" disabled selected data-i18n="admin_sub_dep_wait">ينتظر تحديد الكلية...</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="input-row">
+            <div class="input-group">
+              <label for="credit_hours_input" data-i18n="admin_sub_hours_lbl">عدد الساعات</label>
+              <input type="number" id="credit_hours_input" name="credit_hours" class="standard-input" dir="ltr" min="1" max="8" required>
+            </div>
+            <div class="input-group">
+              <label for="level_input" data-i18n="admin_sub_lvl_lbl">المستوى الدراسي</label>
+              <input type="number" id="level_input" name="level" class="standard-input" dir="ltr" min="1" max="10" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description_input" data-i18n="admin_sub_desc_lbl">وصف المادة</label>
+            <textarea id="description_input" name="description" class="standard-input" rows="3" data-i18n="admin_sub_desc_ph" placeholder="اكتبي وصفاً مختصراً للمادة..." required></textarea>
+          </div>
+
+          <button type="submit" class="submit-approval-btn" data-i18n="admin_sub_btn_add">إضافة المادة للنظام</button>
+        </form>
+      </div>
+
+      <div class="card submissions-card">
+        <h2 class="card-title" data-i18n="admin_sub_list_title">المواد الدراسية الحالية</h2>
+        
+        <div class="filter-section-integrated">
+          <div class="input-row filter-row">
+            <div class="input-group filter-group-large">
+              <label for="search_subject" class="filter-label" data-i18n="admin_sub_search_lbl">بحث بالاسم أو الرمز</label>
+              <input type="text" id="search_subject" class="standard-input" data-i18n="admin_sub_search_ph" placeholder="اكتب للبحث...">
+            </div>
+            
+            <div class="input-group filter-group-large">
+              <label for="filter_department" class="filter-label" data-i18n="admin_sub_fdep_lbl">الكلية والقسم</label>
+              <select id="filter_department" class="standard-input">
+                <option value="all" data-i18n="admin_sub_fdep_opt">جميع الأقسام</option>
+              </select>
+            </div>
+            
+            <div class="input-group filter-group-small">
+              <label for="filter_level" class="filter-label" data-i18n="admin_sub_flvl_lbl">المستوى</label>
+              <select id="filter_level" class="standard-input" dir="ltr">
+                <option value="all" data-i18n="admin_sub_flvl_opt">الكل</option>
+                <option value="1">1</option><option value="2">2</option><option value="3">3</option>
+                <option value="4">4</option><option value="5">5</option><option value="6">6</option>
+                <option value="7">7</option><option value="8">8</option><option value="9">9</option>
+                <option value="10">10</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-list" id="admin-subjects-list">
+          <p class="empty-submissions" data-i18n="admin_sub_loading">جاري تحميل المواد...</p>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <img class="footer-logo" src="./assets/Footer-logo.png" alt="DirayaAI Logo">
+    <p class="footer-text" data-i18n="footer_text">2026 DirayaAI. جميع الحقوق محفوظة | سياسة الخصوصية | شروط الخدمة</p>
+  </footer>
+
+</div>
+
+<script src="translations.js"></script>
+<script src="main.js"></script>
+<script src="admin.js"></script>
+</body>
+</html>
