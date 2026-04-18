@@ -31,7 +31,7 @@ switch ($action) {
      */
     case 'check_session':
         if (isset($_SESSION['user_id']) && isset($_SESSION['user_name'])) {
-            echo json_encode(["logged_in" => true, "user_name" => $_SESSION['user_name'], "role" => $_SESSION['role']]);
+            echo json_encode(["logged_in" => true, "user_name" => $_SESSION['user_name'], "role" => $_SESSION['role'], "csrf_token" => $_SESSION['csrf_token']]);
         } else {
             echo json_encode(["logged_in" => false]);
         }
