@@ -34,8 +34,8 @@ switch ($action) {
 
     // --- 3. إضافة سؤال جديد لقاعدة بيانات البوت ---
     case 'add_faq':
-        $question = trim($_POST['question'] ?? '');
-        $answer = trim($_POST['answer'] ?? '');
+        $question = htmlspecialchars(trim($_POST['question'] ?? ''), ENT_QUOTES, 'UTF-8');
+        $answer = htmlspecialchars(trim($_POST['answer'] ?? ''), ENT_QUOTES, 'UTF-8');
         $category = trim($_POST['category'] ?? 'عام');
 
         if (empty($question) || empty($answer)) {
