@@ -38,6 +38,14 @@ if (!isset($_SESSION['user_id']) || ($_SESSION['role'] !== 'مشرف' && $_SESSI
     die(json_encode(["status" => "error", "message" => "unauthorized"]));
 }
 
+// التحقق من صحة توكن CSRF للعمليات التي تغير البيانات (POST)
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $client_token = $_POST['csrf_token'] ?? $_SERVER['HTTP_X_CSRF_TOKEN'] ?? '';
+    if (!hash_equals($_SESSION['csrf_token'] ?? '', $client_token)) {
+        die(json_encode(["status" => "error", "message" => "طلب غير مصرح به (فشل التحقق من الأمان)."]));
+    }
+}
+
 // استقبال نوع العملية (Action) سواء جاءت عبر GET أو POST
 $action = $_GET['action'] ?? $_POST['action'] ?? '';
 
