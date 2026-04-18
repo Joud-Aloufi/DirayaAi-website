@@ -110,6 +110,9 @@ function handleLogin($pdo) {
     $_SESSION['user_id'] = $user['User_ID'];
     $_SESSION['user_name'] = $user['first_name'] . ' ' . $user['last_name'];
     $_SESSION['role'] = $user['role'];
+    if (empty($_SESSION['csrf_token'])) {
+        $_SESSION['csrf_token'] = bin2hex(random_bytes(32));
+    }
     $_SESSION['last_activity'] = time(); 
 
     // توجيه المستخدم حسب الرتبة
