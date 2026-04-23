@@ -21,6 +21,9 @@ switch ($action) {
     case 'logout':
         handleLogout();
         break;
+    case 'forgot_password':
+        handleForgotPassword($pdo);
+        break;
     default:
         exit("invalid_action");
 }
@@ -58,12 +61,12 @@ function handleSignup($pdo) {
     }
 
     // التحقق من عدم تكرار البريد الإلكتروني
-    $checkEmail = $pdo->prepare("SELECT email FROM Users WHERE email = ?");
+    $checkEmail = $pdo->prepare("SELECT email FROM users WHERE email = ?");
     $checkEmail->execute([$email]);
     if ($checkEmail->fetch()) { exit("email_exists"); }
 
     // التحقق من عدم تكرار الرقم الجامعي
-    $checkId = $pdo->prepare("SELECT id_number FROM Users WHERE id_number = ?");
+    $checkId = $pdo->prepare("SELECT id_number FROM users WHERE id_number = ?");
     $checkId->execute([$id_number]);
     if ($checkId->fetch()) { exit("id_exists"); }
 
@@ -72,7 +75,7 @@ function handleSignup($pdo) {
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
         
         // 🌟 التعديل هنا: شلنا الـ role تماماً عشان قاعدة البيانات تحط الديفولت (طالب) تلقائياً 🌟
-        $query = "INSERT INTO Users (id_number, first_name, last_name, email, Password_Hash, Phone_Number) 
+        $query = "INSERT INTO users (id_number, first_name, last_name, email, Password_Hash, Phone_Number) 
                   VALUES (?, ?, ?, ?, ?, ?)";
         $stmt = $pdo->prepare($query);
         $stmt->execute([$id_number, $first_name, $last_name, $email, $hashed_password, $phone]);
@@ -93,7 +96,7 @@ function handleLogin($pdo) {
     $password = $_POST['login_pass'] ?? '';
 
     // البحث عن المستخدم بالبريد الإلكتروني
-    $stmt = $pdo->prepare("SELECT * FROM Users WHERE email = ?");
+    $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
     $stmt->execute([$email]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -103,7 +106,7 @@ function handleLogin($pdo) {
     if (!password_verify($password, $user['Password_Hash'])) { exit("invalid_credentials"); }
 
     // تحديث إحصائيات تسجيل الدخول
-    $update = $pdo->prepare("UPDATE Users SET Login_Count = Login_Count + 1, Last_Login = NOW() WHERE User_ID = ?");
+    $update = $pdo->prepare("UPDATE users SET Login_Count = Login_Count + 1, Last_Login = NOW() WHERE User_ID = ?");
     $update->execute([$user['User_ID']]);
 
     // حفظ بيانات الجلسة (Session)
@@ -133,5 +136,51 @@ function handleLogout() {
     session_destroy();
     header("Location: index.html");
     exit();
+}
+
+/**
+ * ==========================================
+ * 4. نظام استعادة كلمة المرور عبر الإيميل
+ * ==========================================
+ */
+function handleForgotPassword($pdo) {
+    try {
+        $email = trim($_POST['forgot_email'] ?? '');
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) { exit("invalid_email_format"); }
+
+        // التحقق من وجود الحساب (تأكدي من مطابقة حالة أحرف الأعمدة في قاعدة بياناتك)
+        $stmt = $pdo->prepare("SELECT User_ID, First_Name FROM users WHERE Email = ? AND Is_Active = 1");
+        $stmt->execute([$email]);
+        $user = $stmt->fetch();
+
+        if ($user) {
+            $token = bin2hex(random_bytes(32));
+            $expiry = date("Y-m-d H:i:s", strtotime("+1 hour"));
+
+            $update = $pdo->prepare("UPDATE users SET Reset_Token = ?, Token_Expiry = ? WHERE User_ID = ?");
+            $update->execute([$token, $expiry, $user['User_ID']]);
+
+            $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http";
+            $domain = $_SERVER['HTTP_HOST'];
+            $resetLink = $protocol . "://" . $domain . "/reset_password.php?token=" . $token;
+            
+            $to = $email;
+            $subject = "استعادة كلمة المرور - DirayaAI";
+            $message = "مرحباً " . $user['First_Name'] . "،\n\nلقد طلبتِ استعادة كلمة المرور لحسابك في منصة DirayaAI.\nالرجاء الضغط على الرابط التالي لتعيين كلمة مرور جديدة:\n" . $resetLink . "\n\nفريق DirayaAI";
+            
+            $headers = "From: noreply@" . $domain . "\r\n" . "Content-Type: text/plain; charset=UTF-8\r\n";
+//Presentation Mode
+            if (@mail($to, $subject, $message, $headers)) {
+                echo "success_email_sent"; 
+            } else {
+                echo "success_link|" . $resetLink;
+            }
+
+        } else {
+            exit("email_not_found");
+        }
+    } catch (PDOException $e) {
+        exit("database_error"); 
+    }
 }
 ?>
