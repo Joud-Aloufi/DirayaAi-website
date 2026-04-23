@@ -194,29 +194,28 @@ function initAuthForms() {
         return typeof translations !== 'undefined' ? translations[lang] : null;
     };
 
-    // 🌟 1. التبديل بين واجهة تسجيل الدخول وواجهة إنشاء الحساب 🌟
+    //  1. التبديل بين نموذج الدخول، التسجيل، والاستعادة  
     const showLoginBtn = document.getElementById('showLoginBtn');
     const showSignupBtn = document.getElementById('showSignupBtn');
+    const showForgotBtn = document.getElementById('showForgotBtn');
+    const backToLoginBtn = document.getElementById('backToLoginBtn');
+    
     const signupWrapper = document.getElementById('signupWrapper');
     const loginWrapper = document.getElementById('loginWrapper');
+    const forgotWrapper = document.getElementById('forgotWrapper');
 
-    if (showLoginBtn) {
-        showLoginBtn.onclick = (e) => {
-            e.preventDefault();
-            if(signupWrapper) signupWrapper.classList.add('hidden');
-            if(loginWrapper) loginWrapper.classList.remove('hidden');
-        };
-    }
+    const switchForm = (show, hide1, hide2) => {
+        if(show) show.classList.remove('hidden');
+        if(hide1) hide1.classList.add('hidden');
+        if(hide2) hide2.classList.add('hidden');
+    };
 
-    if (showSignupBtn) {
-        showSignupBtn.onclick = (e) => {
-            e.preventDefault();
-            if(loginWrapper) loginWrapper.classList.add('hidden');
-            if(signupWrapper) signupWrapper.classList.remove('hidden');
-        };
-    }
+    if (showLoginBtn) showLoginBtn.onclick = (e) => { e.preventDefault(); switchForm(loginWrapper, signupWrapper, forgotWrapper); };
+    if (showSignupBtn) showSignupBtn.onclick = (e) => { e.preventDefault(); switchForm(signupWrapper, loginWrapper, forgotWrapper); };
+    if (showForgotBtn) showForgotBtn.onclick = (e) => { e.preventDefault(); switchForm(forgotWrapper, loginWrapper, signupWrapper); };
+    if (backToLoginBtn) backToLoginBtn.onclick = (e) => { e.preventDefault(); switchForm(loginWrapper, forgotWrapper, signupWrapper); };
 
-    // 🌟 2. معالجة نموذج إنشاء حساب (Signup) والتحقق من البيانات 🌟
+    //  2. معالجة نموذج إنشاء حساب (Signup) 
     const signupForm = document.getElementById('signupForm');
     if (signupForm) {
         const pass = document.getElementById('password');
@@ -225,7 +224,7 @@ function initAuthForms() {
         const emailError = document.getElementById('email-error');
         const generalError = document.getElementById('general-error');
         const responseMsg = document.getElementById('response-msg');
-
+		
         // إزالة تنسيق الخطأ (اللون الأحمر) عند بدء الكتابة في أي حقل
         signupForm.querySelectorAll('input').forEach(input => input.addEventListener('input', () => input.classList.remove('input-error')));
 
@@ -246,10 +245,10 @@ function initAuthForms() {
 
             if (hasEmptyFields) {
                 showMsg(generalError, t ? t.auth_err_empty_fields : 'يرجى تعبئة جميع الحقول المطلوبة.', false);
-                return; // إيقاف العملية
+                return; 
             }
-
-            // التحقق من أن الاسم الأول والأخير يحتويان على نصوص فقط
+			
+             // التحقق من أن الاسم الأول والأخير يحتويان على نصوص فقط
             const fNameField = document.getElementById('f_name');
             const lNameField = document.getElementById('l_name');
             const nameRegex = /^[\u0600-\u06FFa-zA-Z\s]+$/; 
@@ -264,7 +263,7 @@ function initAuthForms() {
                 showMsg(generalError, t ? t.invalid_name : 'عذراً، يجب أن يحتوي الاسم على أحرف فقط.', false);
                 return;
             }
-
+			
             // التحقق من صحة الرقم الجامعي (أرقام فقط وطول لا يقل عن 8)
             const uniIdField = document.getElementById('uni_id');
             const uniIdVal = uniIdField ? uniIdField.value.trim() : '';
@@ -280,8 +279,8 @@ function initAuthForms() {
                     return; 
                 }
             }
-
-            // التحقق من صحة صيغة البريد الإلكتروني
+			
+             // التحقق من صحة صيغة البريد الإلكتروني
             const emailField = document.getElementById('user_email');
             const emailVal = emailField ? emailField.value.trim() : '';
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -290,7 +289,7 @@ function initAuthForms() {
                 showMsg(generalError, t ? t.invalid_email_format : 'صيغة البريد الإلكتروني غير صحيحة.', false);
                 return;
             }
-
+			
             // التحقق من تطابق كلمتي المرور
             let hasError = false;
             if (pass.value !== confirmPass.value) { 
@@ -299,14 +298,13 @@ function initAuthForms() {
                 hasError = true; 
             }
 
-            // تقييم قوة كلمة المرور برمجياً
             let score = 0;
             if (pass.value.length >= 8) score += 25; 
             if (/[a-z]/.test(pass.value) && /[A-Z]/.test(pass.value)) score += 25; 
             if (/[0-9]/.test(pass.value)) score += 25; 
             if (/[!@#$%^&*()]/.test(pass.value)) score += 25; 
-
-            // رفض كلمة المرور إذا كانت ضعيفة
+			
+            // تقييم قوة كلمة المرور برمجياً
             if (score < 75) {
                 pass.classList.add('input-error');
                 showMsg(generalError, t ? t.auth_err_pass_weak_req : 'عذراً، يجب أن تكون كلمة المرور (قوية) أو (قوية جداً).', false);
@@ -317,23 +315,22 @@ function initAuthForms() {
                 showMsg(generalError, t ? t.auth_err_inputs : "الرجاء التأكد من المدخلات.", false); 
                 return; 
             }
-
+			
             // نافذة منبثقة لتأكيد الرقم الجامعي لأنه لا يمكن تغييره لاحقاً
             const confirmMsg = t ? (t.auth_confirm_uni_id_1 + uniIdVal + t.auth_confirm_uni_id_2) : `هل أنت متأكد من الرقم الجامعي (${uniIdVal})؟\nالرجاء التأكد، لأنه لا يمكن تعديله لاحقاً.`;
-            if (!confirm(confirmMsg)) {
-                return; // إلغاء العملية إذا لم يوافق المستخدم
-            }
-
+            
+            if (!confirm(confirmMsg)) { return; }
+			
             // تغيير حالة الزر أثناء المعالجة لمنع الإرسال المزدوج
             const submitBtn = signupForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.textContent;
             submitBtn.textContent = t ? t.upload_btn_processing : 'جاري المعالجة...';
             submitBtn.disabled = true;
-
+			
             // إرسال البيانات للسيرفر
             try {
                 const result = await fetchAPI('auth_handler.php?action=signup', { method: 'POST', body: new FormData(signupForm) });
-
+				
                 // التعامل مع الردود المختلفة من السيرفر
                 if (typeof result === 'string') {
                     if (result.includes("email_exists")) { 
@@ -353,24 +350,14 @@ function initAuthForms() {
                         document.getElementById('user_email').classList.add('input-error');
                         showMsg(generalError, t ? t.invalid_email_format : "صيغة البريد الإلكتروني غير صحيحة.", false);
                     } else if (result.includes("success")) { 
-                        // نجاح التسجيل: تفريغ النموذج وإخفاء عداد المرور
                         showMsg(responseMsg, t ? t.auth_success_signup : "تم إنشاء الحساب بنجاح!", true); 
                         signupForm.reset(); 
-                        
                         document.querySelectorAll('#signupForm .password-segment').forEach(s => s.classList.remove('filled'));
                         const meterContainer = document.querySelector('#signupForm .password-meter-container');
-                        if (meterContainer) {
-                            meterContainer.className = 'password-meter-container';
-                            meterContainer.style.display = 'none';
-                        }
+                        if (meterContainer) { meterContainer.className = 'password-meter-container'; meterContainer.style.display = 'none'; }
                         const passText = document.getElementById('password-text');
-                        if (passText) {
-                            passText.textContent = t ? t.auth_pass_meter : "قوة كلمة المرور";
-                            passText.style.display = 'none';
-                        }
-                    } else { 
-                        showMsg(generalError, result, false); 
-                    }
+                        if (passText) { passText.textContent = t ? t.auth_pass_meter : "قوة كلمة المرور"; passText.style.display = 'none'; }
+                    } else { showMsg(generalError, result, false); }
                 }
             } catch (err) {
                 showMsg(generalError, t ? t.auth_err_unexpected : "حدث خطأ غير متوقع.", false);
@@ -382,17 +369,13 @@ function initAuthForms() {
         };
     }
 
-    // 🌟 3. معالجة نموذج تسجيل الدخول (Login) 🌟
+    //  3. معالجة نموذج تسجيل الدخول (Login) 
     const loginForm = document.getElementById('loginForm');
     if (loginForm) {
         const loginError = document.getElementById('login-error');
-        
         // إزالة علامة الخطأ عند بدء الكتابة
         loginForm.querySelectorAll('input').forEach(input => {
-            input.addEventListener('input', () => {
-                input.classList.remove('input-error');
-                if (loginError) loginError.style.display = 'none';
-            });
+            input.addEventListener('input', () => { input.classList.remove('input-error'); if (loginError) loginError.style.display = 'none'; });
         });
 
         loginForm.onsubmit = async (e) => {
@@ -401,52 +384,73 @@ function initAuthForms() {
             if (loginError) loginError.style.display = 'none';
             let hasError = false;
 
-            // التحقق من الحقول الفارغة
             loginForm.querySelectorAll('input[required]').forEach(input => {
                 if (!input.value.trim()) { input.classList.add('input-error'); hasError = true; }
             });
 
-            // التحقق من صيغة البريد الإلكتروني
             const loginEmailInput = document.getElementById('login_email');
             const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             if (!hasError && loginEmailInput && !emailRegex.test(loginEmailInput.value.trim())) {
-                loginEmailInput.classList.add('input-error');
-                hasError = true;
+                loginEmailInput.classList.add('input-error'); hasError = true;
                 showMsg(loginError, t ? t.auth_err_email_format : "الرجاء إدخال بريد إلكتروني بصيغة صحيحة.", false);
             }
 
             if (hasError) return;
 
-            // تعطيل الزر أثناء المعالجة
             const submitBtn = loginForm.querySelector('.submit-btn');
             submitBtn.textContent = t ? t.auth_btn_logging_in : 'جاري الدخول...';
             submitBtn.disabled = true;
 
-            // إرسال الطلب للسيرفر
             const result = await fetchAPI('auth_handler.php?action=login', { method: 'POST', body: new FormData(loginForm) });
 
-            // توجيه المستخدم حسب نوع الحساب بناءً على رد السيرفر
-            if (result === 'success_admin') {
-                window.location.href = 'admin_dashboard.html'; 
-            } else if (result === 'success_student') {
-                window.location.href = 'index.html'; 
+            if (result === 'success_admin') { window.location.href = 'admin_dashboard.html'; 
+            } else if (result === 'success_student') { window.location.href = 'index.html'; 
             } else if (result === 'invalid_credentials') {
                 showMsg(loginError, t ? t.auth_err_invalid_creds : "البريد الإلكتروني أو كلمة المرور غير صحيحة.", false);
-                document.getElementById('login_email').classList.add('input-error'); 
-                document.getElementById('login_pass').classList.add('input-error');
-            } else if (result === 'account_disabled') {
-                showMsg(loginError, t ? t.auth_err_disabled : "هذا الحساب معطل، يرجى التواصل مع الإدارة.", false);
-            } else {
-                showMsg(loginError, t ? t.auth_err_unexpected : "حدث خطأ غير متوقع.", false);
-            }
+                document.getElementById('login_email').classList.add('input-error'); document.getElementById('login_pass').classList.add('input-error');
+            } else if (result === 'account_disabled') { showMsg(loginError, t ? t.auth_err_disabled : "هذا الحساب معطل، يرجى التواصل مع الإدارة.", false);
+            } else { showMsg(loginError, t ? t.auth_err_unexpected : "حدث خطأ غير متوقع.", false); }
 
-            // إعادة تفعيل الزر
             submitBtn.textContent = t ? t.auth_login_btn : 'تسجيل الدخول'; 
             submitBtn.disabled = false;
         };
     }
-}
 
+    //  4. معالجة نموذج استعادة كلمة المرور  
+    const forgotForm = document.getElementById('forgotForm');
+    if (forgotForm) {
+        forgotForm.onsubmit = async (e) => {
+            e.preventDefault();
+            const t = getT();
+            const msg = document.getElementById('forgot-msg');
+            const btn = forgotForm.querySelector('button');
+
+            btn.disabled = true;
+            btn.textContent = (t && t.upload_btn_processing) ? t.upload_btn_processing : 'جاري التحقق...';
+
+            try {
+                const res = await fetchAPI('auth_handler.php?action=forgot_password', { method: 'POST', body: new FormData(forgotForm) });
+
+                if (res === 'success_email_sent') {
+                    showMsg(msg, "تم إرسال الرابط لإيميلك بنجاح!", true);
+                } else if (typeof res === 'string' && res.startsWith("success_link")) {
+                    const link = res.split('|')[1];
+                    // 🌟 رسالة ذكية توضح للجنة إن النظام شغال بس الاستضافة مقيدة 🌟
+                    showMsg(msg, "تم التحقق! (لأغراض العرض: <a href='"+link+"' style='color:blue; text-decoration:underline;'>اضغطي هنا لإعادة التعيين</a>)", true);
+                } else if (res === 'email_not_found') {
+                    showMsg(msg, 'عذراً، هذا البريد غير مسجل لدينا.', false);
+                } else {
+                    showMsg(msg, "حدث خطأ غير متوقع.", false);
+                }
+            } catch (err) {
+                showMsg(msg, "حدث خطأ في الاتصال بالخادم.", false);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = (t && t.auth_forgot_btn) ? t.auth_forgot_btn : 'تحقق من الحساب';
+            }
+        };
+    }
+}
 /**
  * دالة لتشغيل وتحديث العداد المرئي الذي يقيس قوة كلمة المرور المدخلة.
  * يتفاعل مع المستخدم أثناء الكتابة (Real-time).
@@ -592,7 +596,7 @@ async function initProfile() {
             const newPass = document.getElementById('new-pass-input') ? document.getElementById('new-pass-input').value : '';
             const confirmPass = document.getElementById('confirm-pass-input') ? document.getElementById('confirm-pass-input').value : '';
             
-            // 🌟 التحقق من صحة وقوة كلمة المرور الجديدة 🌟
+            //  التحقق من صحة وقوة كلمة المرور الجديدة 
             if (newPass) {
                 if (newPass !== confirmPass) {
                     const errMatch = t ? t.auth_err_pass_match : 'كلمات المرور الجديدة غير متطابقة.';
@@ -750,7 +754,7 @@ function initUploadSystem() {
                     const upDateTxt = t ? t.upload_date_prefix : 'تاريخ الرفع: ';
                     const delReqTxt = t ? t.upload_delete_req : 'حذف الطلب';
                     
-                    // زر الحذف: يظهر فقط إذا كان الطلب قيد المراجعة (لم يتم البت فيه)
+                    // زر الحذف: يظهر فقط إذا كان الطلب قيد المراجعة
                     const deleteBtn = s.Status === 'Pending' 
                         ? `<button class="action-btn btn-reject" style="margin-right: auto; margin-left: 0;" onclick="deleteStudentSubmission(${s.Resource_ID})">${delReqTxt}</button>` 
                         : '';
@@ -1126,3 +1130,15 @@ function initLanguageSystem() {
         });
     }
 }
+
+/**
+ * ============================================================================
+ * التهيئة العامة للصفحات (Global Initialization)
+ * ============================================================================
+ */
+document.addEventListener('DOMContentLoaded', () => {
+    // تشغيل عداد قوة كلمة المرور تلقائياً في أي صفحة تحتوي على حقل كلمة مرور
+    if (typeof initPasswordStrengthMeter === 'function') {
+        initPasswordStrengthMeter();
+    }
+});
