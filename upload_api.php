@@ -39,7 +39,7 @@ switch ($action) {
      */
     case 'get_subjects':
         try {
-            $stmt = $pdo->prepare("SELECT Subject_ID, Subject_Name, Subject_Code FROM Subjects WHERE Is_Active = 1 ORDER BY Level ASC");
+            $stmt = $pdo->prepare("SELECT Subject_ID, Subject_Name, Subject_Code FROM subjects WHERE Is_Active = 1 ORDER BY Level ASC");
             $stmt->execute();
             $subjects = $stmt->fetchAll(PDO::FETCH_ASSOC);
             echo json_encode(["status" => "success", "subjects" => $subjects]);
@@ -55,8 +55,8 @@ switch ($action) {
         try {
             $stmt = $pdo->prepare("
                 SELECT r.Resource_ID, r.Description, r.Resource_Type, r.File_URL, r.Status, r.Upload_Date, s.Subject_Name 
-                FROM Academic_Resources r
-                JOIN Subjects s ON r.Subject_ID = s.Subject_ID
+                FROM academic_resources r
+                JOIN subjects s ON r.Subject_ID = s.Subject_ID
                 WHERE r.User_ID = ?
                 ORDER BY r.Upload_Date DESC
             ");
@@ -75,7 +75,7 @@ switch ($action) {
         $resource_id = $_POST['resource_id'] ?? '';
         try {
             // التأكد من أن الطلب يخص المستخدم نفسه وأنه قيد المراجعة فقط لمنع حذف مواد معتمدة
-            $stmt = $pdo->prepare("DELETE FROM Academic_Resources WHERE Resource_ID = ? AND User_ID = ? AND Status = 'Pending'");
+            $stmt = $pdo->prepare("DELETE FROM academic_resources WHERE Resource_ID = ? AND User_ID = ? AND Status = 'Pending'");
             $stmt->execute([$resource_id, $user_id]);
             
             if ($stmt->rowCount() > 0) {
@@ -94,7 +94,7 @@ switch ($action) {
     case 'upload_resource':
         $upload_type = $_POST['upload_type'] ?? 'file';
         $subject_id = $_POST['subject_id'] ?? '';
-        $description = trim($_POST['description'] ?? '');
+        $description = htmlspecialchars(trim($_POST['description'] ?? ''), ENT_QUOTES, 'UTF-8');
         $resource_url = trim($_POST['resource_url'] ?? '');
 
         // تحقق من الحقول الأساسية
@@ -120,16 +120,16 @@ switch ($action) {
             $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
 
             // تحديد الامتدادات المسموحة للأمان
-            $allowed_pdf = ['pdf'];
+            $allowed_file = ['pdf','ppt','pptx','docx','doc'];
             $allowed_video = ['mp4', 'mov', 'avi', 'mkv'];
 
             // تصنيف نوع الملف
-            if (in_array($file_extension, $allowed_pdf)) {
-                $resource_type = 'PDF';
+            if (in_array($file_extension, $allowed_file)) {
+                $resource_type = strtoupper($file_extension);
             } elseif (in_array($file_extension, $allowed_video)) {
                 $resource_type = 'Video';
             } else {
-                echo json_encode(["status" => "error", "message" => "عذراً، الصيغة المدعومة هي PDF أو فيديو فقط."]);
+                echo json_encode(["status" => "error", "message" => "عذراً، الصيغة المدعومة هي 'PDF' , 'PPTX' , 'PPT' , 'DOCX' , 'DOC' أو فيديو فقط." ]);
                 exit();
             }
 
@@ -167,12 +167,12 @@ switch ($action) {
 
         try {
             // إدخال بيانات الملف في قاعدة البيانات
-            $stmt = $pdo->prepare("INSERT INTO Academic_Resources (User_ID, Subject_ID, Title, Description, Resource_Type, File_URL, Status) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO academic_resources (User_ID, Subject_ID, Title, Description, Resource_Type, File_URL, Status) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([$user_id, $subject_id, $title, $description, $resource_type, $final_file_url, $status]);
             
             // تسجيل العملية الإدارية (Audit Log) في حال كان الرفع من قبل مدير واعتمد تلقائياً
             if ($status === 'Approved') {
-                $log_action = $pdo->prepare("INSERT INTO Admin_Actions (Admin_ID, Action_Type, Target_Table, Action_Description) VALUES (?, 'Insert', 'Academic_Resources', ?)");
+                $log_action = $pdo->prepare("INSERT INTO admin_actions (Admin_ID, Action_Type, Target_Table, Action_Description) VALUES (?, 'Insert', 'academic_resources', ?)");
                 $desc = "قام المشرف/المدير برفع محتوى أكاديمي معتمَد مباشرة: $title";
                 $log_action->execute([$user_id, $desc]);
             }
