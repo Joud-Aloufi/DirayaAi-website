@@ -101,36 +101,67 @@ Description: صفحة المصادقة الأساسية، تحتوي على نم
 </div>
 
 <div id="loginWrapper">
-<div class="form-header">
-    <div class="icon">
-        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-    </div> 
-    <h2 data-i18n="auth_login_title">تسجيل الدخول</h2>
-    <div id="login-error" class="error-msg" data-i18n="auth_err_invalid_creds">البريد الإلكتروني أو كلمة المرور غير صحيحة</div>
-</div>
-
-<form id="loginForm" action="auth_handler.php?action=login" method="POST" class="auth-form" novalidate>
-<div class="input-group">
-    <label for="login_email" data-i18n="auth_email_lbl">البريد الإلكتروني</label>
-    <input type="email" id="login_email" name="login_email" class="standard-input" dir="ltr" data-i18n="auth_email_ph" placeholder="example@domain.com" required>
-</div>
-
-<div class="input-group">
-    <label for="login_pass" data-i18n="auth_pass_lbl">كلمة المرور</label>
-    <div class="pass-wrapper">
-    <input type="password" id="login_pass" name="login_pass" class="standard-input" dir="ltr" data-i18n="auth_pass_login_ph" placeholder="أدخل كلمة المرور الخاصة بك" required>
-    <button type="button" class="toggle-pass-btn" aria-label="إظهار أو إخفاء كلمة المرور" title="إظهار/إخفاء كلمة المرور"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+    <div class="form-header">
+        <div class="icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+        </div> 
+        <h2 data-i18n="auth_login_title">تسجيل الدخول</h2>
+        <div id="login-error" class="error-msg" data-i18n="auth_err_invalid_creds">البريد الإلكتروني أو كلمة المرور غير صحيحة</div>
     </div>
+
+    <form id="loginForm" action="auth_handler.php?action=login" method="POST" class="auth-form" novalidate>
+    <div class="input-group">
+        <label for="login_email" data-i18n="auth_email_lbl">البريد الإلكتروني</label>
+        <input type="email" id="login_email" name="login_email" class="standard-input" dir="ltr" data-i18n="auth_email_ph" placeholder="example@domain.com" required>
+    </div>
+
+    <div class="input-group">
+        <label for="login_pass" data-i18n="auth_pass_lbl">كلمة المرور</label>
+        <div class="pass-wrapper">
+        <input type="password" id="login_pass" name="login_pass" class="standard-input" dir="ltr" data-i18n="auth_pass_login_ph" placeholder="أدخل كلمة المرور الخاصة بك" required>
+        <button type="button" class="toggle-pass-btn" aria-label="إظهار أو إخفاء كلمة المرور" title="إظهار/إخفاء كلمة المرور"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg></button>
+        </div>
+    </div>
+
+    
+
+    <button type="submit" class="submit-btn" data-i18n="auth_login_btn">تسجيل الدخول</button>
+
+    <p class="switch-text">
+    <span data-i18n="auth_no_account">ليس لديك حساب؟</span>
+    <button type="button" id="showSignupBtn" class="link-btn" data-i18n="auth_signup_title">إنشاء حساب</button>
+    
+    <div style="text-align: center; margin-bottom: 10px; margin-top: 15px;">
+        <button type="button" id="showForgotBtn" class="link-btn" style="font-size: 13px;" data-i18n="auth_forgot_pass">نسيت كلمة المرور؟</button>
+    </div>
+    </p>
+    </form>
+
 </div>
 
-<button type="submit" class="submit-btn" data-i18n="auth_login_btn">تسجيل الدخول</button>
+<div id="forgotWrapper" class="hidden">
+    <div class="form-header">
+        <div class="icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18v3c0 .6.4 1 1 1h4v-3h3v-3h2l1.4-1.4a6.5 6.5 0 1 0-4-4Z"></path><circle cx="16.5" cy="7.5" r=".5"></circle></svg>
+        </div> 
+        <h2 data-i18n="auth_forgot_title">استعادة كلمة المرور</h2>
+        <p style="color: #666; font-size: 14px; margin-bottom: 20px; text-align: center;" data-i18n="auth_forgot_desc">أدخل بريدك الإلكتروني المرتبط بحسابك لاستعادة كلمة المرور.</p>
+        <div id="forgot-msg" class="error-msg"></div>
+    </div>
 
-<p class="switch-text">
-<span data-i18n="auth_no_account">ليس لديك حساب؟</span>
-<button type="button" id="showSignupBtn" class="link-btn" data-i18n="auth_signup_title">إنشاء حساب</button>
-</p>
-</form>
+    <form id="forgotForm" class="auth-form" novalidate>
+        <div class="input-group">
+            <label for="forgot_email" data-i18n="auth_email_lbl">البريد الإلكتروني</label>
+            <input type="email" id="forgot_email" name="forgot_email" class="standard-input" dir="ltr" data-i18n="auth_email_ph" placeholder="example@domain.com" required>
+        </div>
 
+        <button type="submit" class="submit-btn" data-i18n="auth_forgot_btn">تحقق من الحساب</button>
+
+        <p class="switch-text">
+            <button type="button" id="backToLoginBtn" class="link-btn" data-i18n="auth_back_login">العودة لتسجيل الدخول</button>
+        </p>
+    </form>
+    
 </div>
 </div>
 </div>
