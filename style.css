@@ -1082,6 +1082,60 @@ html[dir="ltr"] .input-row {
     100% { transform: scale(1); opacity: 1; } 
 }
 
+/**
+ * ============================================================================
+ * 7.5 RESET PASSWORD (rest_password.html)
+ * ============================================================================
+ */
+
+.reset-main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #FFF7E4; 
+    padding: 20px;
+}
+
+.reset-card {
+    background: white;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 15px 35px rgba(179, 153, 114, 0.18);
+    width: 100%;
+    max-width: 450px;
+    text-align: center;
+}
+
+.status-box h2 {
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+
+.login-brand {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.brand-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px auto; 
+}
+
+.brand-title {
+    text-align: center;
+    width: 100%;
+    margin: 0;
+    color: #B39972;
+    font-size: 24px;
+}
+
 /* --------------------------------------------------------------------------
    8. PROFILE PAGE (profile.html)
    -------------------------------------------------------------------------- */
@@ -2663,11 +2717,11 @@ html[dir="ltr"] .noti-item.unread {
         flex-direction: column; 
         gap: 20px; 
         padding: 20px;
-       position: relative !important;
+        position: relative !important;
     }
     
     body.has-header { 
-        padding-top: 0 !important; 
+        padding-top: 0 !important;
     }
     
     .nav { 
@@ -2676,6 +2730,8 @@ html[dir="ltr"] .noti-item.unread {
         gap: 20px; 
         padding: 12px 20px; 
     }
+    
+    
     
     .signup-btn { 
         width: 100%; 
